@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { Place } from './types/places';
+import { Colors } from './constants/colors';
 
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
@@ -20,12 +21,19 @@ const RootStack = createStackNavigator<RootStackParamList>();
 export default function App() {
     return (
         <NavigationContainer>
-            <RootStack.Navigator>
+            <RootStack.Navigator
+                screenOptions={{
+                    headerStyle: { backgroundColor: Colors.Primary500 },
+                    headerTintColor: Colors.Gray700,
+                    cardStyle: { backgroundColor: Colors.Gray700 },
+                }}
+            >
                 <RootStack.Screen
                     name="AllPlaces"
                     component={AllPlaces}
                     initialParams={{ places: [] }}
                     options={({ navigation }) => ({
+                        title: 'Your Favourite Places',
                         headerRight: ({ tintColor }) => (
                             <IconButton
                                 icon="add"
@@ -36,7 +44,13 @@ export default function App() {
                         ),
                     })}
                 />
-                <RootStack.Screen name="AddPlace" component={AddPlace} />
+                <RootStack.Screen
+                    name="AddPlace"
+                    component={AddPlace}
+                    options={{
+                        title: 'Add a new Place',
+                    }}
+                />
             </RootStack.Navigator>
         </NavigationContainer>
     );

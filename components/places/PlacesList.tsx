@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import PlaceItem from './PlaceItem';
 import { Place } from '../../types/places';
+import { Colors } from '../../constants/colors';
 
 type Props = {
     places: Place[];
@@ -38,5 +39,6 @@ const styles = StyleSheet.create({
     },
     fallbackText: {
         fontSize: 18,
+        color: Colors.Primary200,
     },
 });
