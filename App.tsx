@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { Place } from './types/places';
 
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
+import IconButton from './components/ui/IconButton';
 
 export type RootStackParamList = {
     AllPlaces: { places: Place[] };
@@ -20,18 +21,25 @@ export default function App() {
     return (
         <NavigationContainer>
             <RootStack.Navigator>
-                <RootStack.Screen name="AllPlaces" component={AllPlaces} />
+                <RootStack.Screen
+                    name="AllPlaces"
+                    component={AllPlaces}
+                    initialParams={{ places: [] }}
+                    options={({ navigation }) => ({
+                        headerRight: ({ tintColor }) => (
+                            <IconButton
+                                icon="add"
+                                size={24}
+                                color={tintColor || '#000'}
+                                onPress={() => navigation.navigate('AddPlace')}
+                            />
+                        ),
+                    })}
+                />
                 <RootStack.Screen name="AddPlace" component={AddPlace} />
             </RootStack.Navigator>
         </NavigationContainer>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+const styles = StyleSheet.create({});
