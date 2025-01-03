@@ -1,12 +1,14 @@
 import React from 'react';
+import { StackScreenProps } from '@react-navigation/stack';
 
-import { Place } from '../types/places';
+import { RootStackParamList } from '../App';
+
 import PlacesList from '../components/places/PlacesList';
 
-type Props = {
-    places: Place[];
-};
+type Props = StackScreenProps<RootStackParamList, 'AllPlaces'>;
 
-export default function AllPlaces({ places }: Props) {
+export default function AllPlaces({ route }: Props) {
+    const { places } = route.params;
+
     return <PlacesList places={places} />;
 }
