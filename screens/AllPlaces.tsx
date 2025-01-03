@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 
-export default function AllPlaces() {
-    return (
-        <View>
-            <Text>AllPlaces</Text>
-        </View>
-    );
+import { Place } from '../types/places';
+import PlacesList from '../components/places/PlacesList';
+
+type Props = {
+    places: Place[];
+};
+
+export default function AllPlaces({ places }: Props) {
+    return <PlacesList places={places} />;
 }
