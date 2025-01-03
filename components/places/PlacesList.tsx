@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 
+import PlaceItem from './PlaceItem';
 import { Place } from '../../types/places';
 
 type Props = {
@@ -8,15 +9,14 @@ type Props = {
 };
 
 export default function PlacesList({ places }: Props) {
+    const onSelectHandler = (place: Place) => {
+        console.log('Selected place:', place);
+    };
+
     return (
         <FlatList
             data={places}
-            renderItem={({ item }) => (
-                <View>
-                    <Text>{item.title}</Text>
-                    <Text>{item.address}</Text>
-                </View>
-            )}
+            renderItem={({ item }) => <PlaceItem place={item} onSelect={onSelectHandler} />}
             keyExtractor={(item) => item.id}
         />
     );
