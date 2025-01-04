@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Image, View, StyleSheet, Alert, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Colors } from '../../constants/colors';
+import BaseButton from '../ui/BaseButton';
 
 export default function ImagePickerExample() {
     const [image, setImage] = useState<string | null>(null);
@@ -49,10 +50,12 @@ export default function ImagePickerExample() {
                 {image ? (
                     <Image source={{ uri: image }} style={styles.image} />
                 ) : (
-                    <Text>No image taken yet.</Text>
+                    <Text style={styles.placeholder}>No image taken yet.</Text>
                 )}
             </View>
-            <Button title="Pick an image from camera roll" onPress={pickImage} />
+            <BaseButton variant="outline" icon="camera-outline" onPress={pickImage}>
+                Take Image
+            </BaseButton>
         </View>
     );
 }
@@ -60,9 +63,6 @@ export default function ImagePickerExample() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 16,
     },
     imageContainer: {
         width: '100%',
@@ -76,5 +76,9 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
+    },
+    placeholder: {
+        fontSize: 16,
+        color: Colors.Gray700,
     },
 });
