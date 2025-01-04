@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 4,
         fontSize: 16,
-        borderBottomWidth: 2,
         backgroundColor: Colors.Primary100,
-        borderBottomColor: Colors.Primary700,
+        borderRadius: 6,
     },
 });
