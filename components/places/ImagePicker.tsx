@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import { Button, Image, View, StyleSheet, Alert, Text } from 'react-native';
+import { Image, View, StyleSheet, Alert, Text } from 'react-native';
+
 import * as ImagePicker from 'expo-image-picker';
+
 import { Colors } from '../../constants/colors';
+
 import BaseButton from '../ui/BaseButton';
 
 export default function ImagePickerExample() {
@@ -36,8 +39,6 @@ export default function ImagePickerExample() {
             aspect: [16, 9],
             quality: 0.5,
         });
-
-        console.log(result);
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);

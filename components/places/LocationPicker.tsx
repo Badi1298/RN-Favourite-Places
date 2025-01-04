@@ -1,12 +1,35 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, Alert } from 'react-native';
+
+import * as Location from 'expo-location';
 
 import { Colors } from '../../constants/colors';
 
 import BaseButton from '../ui/BaseButton';
 
 export default function LocationPicker() {
-    function locateUserHandler() {}
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+    async function locateUserHandler() {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+
+        if (status !== 'granted') {
+            Alert.alert(
+                'Permission denied!',
+                'You need to enable location permissions to use this feature.'
+            );
+            return;
+        }
+
+        const location = await Location.getCurrentPositionAsync({
+            accuracy: 6,
+        });
+
+        setLocation(location);
+
+        console.log(location.coords);
+    }
 
     function pickOnMapHandler() {}
 
