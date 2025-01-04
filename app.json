@@ -31,6 +31,12 @@
                     "photosPermission": "The app accesses your photos to let you pick images.",
                     "cameraPermission": "The app accesses your camera to let you take photos of your favourite places."
                 }
+            ],
+            [
+                "expo-location",
+                {
+                    "locationAlwaysAndWhenInUsePermission": "Allow Favourite Places to use your location."
+                }
             ]
         ]
     }
