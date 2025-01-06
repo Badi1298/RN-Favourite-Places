@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, Image, Text } from 'react-native';
 
+import { RootStackParamList } from '../../App';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import * as Location from 'expo-location';
 
 import { Colors } from '../../constants/colors';
@@ -8,7 +12,11 @@ import { getMapPreviewImage } from '../../util/location';
 
 import BaseButton from '../ui/BaseButton';
 
+type NavigationProps = StackNavigationProp<RootStackParamList>;
+
 export default function LocationPicker() {
+    const navigation = useNavigation<NavigationProps>();
+
     const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
 
     async function locateUserHandler() {
@@ -27,11 +35,11 @@ export default function LocationPicker() {
         });
 
         setLocation(location.coords);
-
-        console.log(location.coords);
     }
 
-    function pickOnMapHandler() {}
+    function pickOnMapHandler() {
+        navigation.navigate('Map');
+    }
 
     return (
         <View>
@@ -63,6 +71,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: Colors.Primary100,
         borderRadius: 6,
+        overflow: 'hidden',
     },
     actions: {
         flexDirection: 'row',

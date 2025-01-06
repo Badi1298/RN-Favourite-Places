@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Place } from './types/places';
 import { Colors } from './constants/colors';
 
+import Map from './screens/Map';
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
 import IconButton from './components/ui/IconButton';
@@ -14,6 +15,7 @@ import IconButton from './components/ui/IconButton';
 export type RootStackParamList = {
     AllPlaces: { places: Place[] };
     AddPlace: undefined;
+    Map: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
@@ -49,6 +51,13 @@ export default function App() {
                     component={AddPlace}
                     options={{
                         title: 'Add a new Place',
+                    }}
+                />
+                <RootStack.Screen
+                    name="Map"
+                    component={Map}
+                    options={{
+                        title: 'Map',
                     }}
                 />
             </RootStack.Navigator>
