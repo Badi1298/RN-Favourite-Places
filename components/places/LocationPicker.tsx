@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Image, Text } from 'react-native';
 
 import * as Location from 'expo-location';
 
 import { Colors } from '../../constants/colors';
+import { getMapPreviewImage } from '../../util/location';
 
 import BaseButton from '../ui/BaseButton';
 
 export default function LocationPicker() {
-    const [location, setLocation] = useState<Location.LocationObject | null>(null);
-    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
 
     async function locateUserHandler() {
         const { status } = await Location.requestForegroundPermissionsAsync();
@@ -26,7 +26,7 @@ export default function LocationPicker() {
             accuracy: 6,
         });
 
-        setLocation(location);
+        setLocation(location.coords);
 
         console.log(location.coords);
     }
@@ -35,7 +35,13 @@ export default function LocationPicker() {
 
     return (
         <View>
-            <View style={styles.mapPreview}></View>
+            <View style={styles.mapPreview}>
+                {location ? (
+                    <Image source={{ uri: getMapPreviewImage(location) }} />
+                ) : (
+                    <Text>No location chosen yet.</Text>
+                )}
+            </View>
             <View style={styles.actions}>
                 <BaseButton variant="outline" icon="location-outline" onPress={locateUserHandler}>
                     Locate User
