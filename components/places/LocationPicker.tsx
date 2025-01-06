@@ -37,9 +37,9 @@ export default function LocationPicker() {
         <View>
             <View style={styles.mapPreview}>
                 {location ? (
-                    <Image source={{ uri: getMapPreviewImage(location) }} />
+                    <Image source={{ uri: getMapPreviewImage(location) }} style={styles.image} />
                 ) : (
-                    <Text>No location chosen yet.</Text>
+                    <Text style={styles.placeholderText}>No location chosen yet.</Text>
                 )}
             </View>
             <View style={styles.actions}>
@@ -68,5 +68,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
+    },
+
+    image: {
+        width: '100%',
+        height: '100%',
+    },
+    placeholderText: {
+        fontSize: 16,
     },
 });
