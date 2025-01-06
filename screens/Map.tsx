@@ -2,7 +2,7 @@ import React, { useCallback, useLayoutEffect, useState } from 'react';
 
 import { Alert, StyleSheet, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import MapView, { MapPressEvent, Marker } from 'react-native-maps';
+import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
 
 import { RootStackParamList } from '../App';
 
@@ -21,16 +21,12 @@ export default function Map({ navigation }: Props) {
         longitudeDelta: 0.0421,
     };
 
-    function selectLocationHandler(event: MapPressEvent) {
-        console.log(event.nativeEvent.coordinate);
+    function selectLocationHandler(event: Region) {
+        console.log(event);
 
-        const lat = event.nativeEvent.coordinate.latitude;
-        const lng = event.nativeEvent.coordinate.longitude;
+        const { latitude, longitude } = event;
 
-        setSelectedLocation({
-            lat,
-            lng,
-        });
+        setSelectedLocation({ lat: latitude, lng: longitude });
     }
 
     const savePickedLocationHandler = useCallback(() => {
@@ -64,7 +60,7 @@ export default function Map({ navigation }: Props) {
             <MapView
                 initialRegion={initialRegion}
                 style={styles.map}
-                onPress={selectLocationHandler}
+                onRegionChangeComplete={selectLocationHandler}
             >
                 {selectedLocation && (
                     <Marker

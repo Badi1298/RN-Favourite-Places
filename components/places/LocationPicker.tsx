@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, Image, Text } from 'react-native';
 
 import { RootStackParamList } from '../../App';
-import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import * as Location from 'expo-location';
 
@@ -16,8 +16,17 @@ type NavigationProps = StackNavigationProp<RootStackParamList>;
 
 export default function LocationPicker() {
     const navigation = useNavigation<NavigationProps>();
+    const route = useRoute();
 
-    const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
+    const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
+
+    const pickedLocation = route.params as { pickedLocation?: { lat: number; lng: number } };
+
+    useEffect(() => {
+        if (pickedLocation?.pickedLocation) {
+            setLocation(pickedLocation.pickedLocation);
+        }
+    }, [pickedLocation]);
 
     async function locateUserHandler() {
         const { status } = await Location.requestForegroundPermissionsAsync();
@@ -34,7 +43,10 @@ export default function LocationPicker() {
             accuracy: 6,
         });
 
-        setLocation(location.coords);
+        setLocation({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+        });
     }
 
     function pickOnMapHandler() {
@@ -45,7 +57,15 @@ export default function LocationPicker() {
         <View>
             <View style={styles.mapPreview}>
                 {location ? (
-                    <Image source={{ uri: getMapPreviewImage(location) }} style={styles.image} />
+                    <Image
+                        source={{
+                            uri: getMapPreviewImage({
+                                latitude: location.lat,
+                                longitude: location.lng,
+                            }),
+                        }}
+                        style={styles.image}
+                    />
                 ) : (
                     <Text style={styles.placeholderText}>No location chosen yet.</Text>
                 )}
