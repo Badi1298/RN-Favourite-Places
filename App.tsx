@@ -14,7 +14,7 @@ import IconButton from './components/ui/IconButton';
 
 export type RootStackParamList = {
     AllPlaces: { places: Place[] };
-    AddPlace: undefined;
+    AddPlace: { pickedLocation?: { lat: number; lng: number } };
     Map: undefined;
 };
 
@@ -41,7 +41,7 @@ export default function App() {
                                 icon="add"
                                 size={24}
                                 color={tintColor || '#000'}
-                                onPress={() => navigation.navigate('AddPlace')}
+                                onPress={() => navigation.navigate('AddPlace', {})}
                             />
                         ),
                     })}
