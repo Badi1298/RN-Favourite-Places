@@ -39,6 +39,18 @@ export default function BaseButton({
         },
     }[variant || 'primary'];
 
+    const textStyles = {
+        primary: {
+            color: Colors.Gray700,
+        },
+        secondary: {
+            color: Colors.Gray700,
+        },
+        outline: {
+            color: Colors.Primary500,
+        },
+    }[variant || 'primary'];
+
     return (
         <Pressable
             style={({ pressed }) => [styles.button, buttonStyle, style, pressed && styles.pressed]}
@@ -50,7 +62,7 @@ export default function BaseButton({
                 size={iconSize || 18}
                 color={iconColor || Colors.Primary500}
             />
-            <Text style={[styles.text, textStyle]}>{children}</Text>
+            <Text style={[styles.text, textStyle, textStyles]}>{children}</Text>
         </Pressable>
     );
 }
@@ -76,6 +88,5 @@ const styles = StyleSheet.create({
 
     text: {
         fontSize: 16,
-        color: Colors.Primary500,
     },
 });

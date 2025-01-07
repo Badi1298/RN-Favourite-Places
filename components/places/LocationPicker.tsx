@@ -14,7 +14,11 @@ import BaseButton from '../ui/BaseButton';
 
 type NavigationProps = StackNavigationProp<RootStackParamList>;
 
-export default function LocationPicker() {
+type Props = {
+    onLocationPicked: (location: { lat: number; lng: number }) => void;
+};
+
+export default function LocationPicker({ onLocationPicked }: Props) {
     const navigation = useNavigation<NavigationProps>();
     const route = useRoute();
 
@@ -44,6 +48,11 @@ export default function LocationPicker() {
         });
 
         setLocation({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+        });
+
+        onLocationPicked({
             lat: location.coords.latitude,
             lng: location.coords.longitude,
         });

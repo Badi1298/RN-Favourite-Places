@@ -7,7 +7,11 @@ import { Colors } from '../../constants/colors';
 
 import BaseButton from '../ui/BaseButton';
 
-export default function ImagePickerExample() {
+type Props = {
+    onImageTaken: (image: string) => void;
+};
+
+export default function CameraImagePicker({ onImageTaken }: Props) {
     const [image, setImage] = useState<string | null>(null);
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
@@ -42,6 +46,7 @@ export default function ImagePickerExample() {
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
+            onImageTaken(result.assets[0].uri);
         }
     };
 
