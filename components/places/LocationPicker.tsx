@@ -32,6 +32,12 @@ export default function LocationPicker({ onLocationPicked }: Props) {
         }
     }, [pickedLocation]);
 
+    useEffect(() => {
+        if (!location) return;
+
+        onLocationPicked(location);
+    }, [location, onLocationPicked]);
+
     async function locateUserHandler() {
         const { status } = await Location.requestForegroundPermissionsAsync();
 
@@ -48,11 +54,6 @@ export default function LocationPicker({ onLocationPicked }: Props) {
         });
 
         setLocation({
-            lat: location.coords.latitude,
-            lng: location.coords.longitude,
-        });
-
-        onLocationPicked({
             lat: location.coords.latitude,
             lng: location.coords.longitude,
         });

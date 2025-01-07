@@ -22,8 +22,6 @@ export default function Map({ navigation }: Props) {
     };
 
     function selectLocationHandler(event: Region) {
-        console.log(event);
-
         const { latitude, longitude } = event;
 
         setSelectedLocation({ lat: latitude, lng: longitude });

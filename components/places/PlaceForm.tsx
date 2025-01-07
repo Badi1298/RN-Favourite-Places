@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
 
 import { Colors } from '../../constants/colors';
@@ -19,9 +19,9 @@ export default function PlaceForm() {
         setPlace((prevPlace) => ({ ...prevPlace, image }));
     };
 
-    const onLocationPickedHandler = (location: { lat: number; lng: number }) => {
+    const onLocationPickedHandler = useCallback((location: { lat: number; lng: number }) => {
         setPlace((prevPlace) => ({ ...prevPlace, location }));
-    };
+    }, []);
 
     const onSubmitHandler = () => {
         console.log(place);
