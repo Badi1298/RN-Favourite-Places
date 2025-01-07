@@ -10,7 +10,7 @@ type Props = StackScreenProps<RootStackParamList, 'AddPlace'>;
 
 export default function AddPlace({ navigation }: Props) {
     function createPlaceHandler(placeData: PlaceType) {
-        navigation.navigate('AllPlaces', { places: [placeData] });
+        navigation.navigate('AllPlaces', { place: placeData });
     }
 
     return <PlaceForm onCreatePlace={createPlaceHandler} />;

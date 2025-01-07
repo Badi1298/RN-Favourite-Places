@@ -37,7 +37,8 @@ export default function PlaceForm({ onCreatePlace }: Props) {
 
     const onSubmitHandler = async () => {
         const placeData = new Place(place.title, place.image, place.location);
-        console.log(placeData);
+
+        onCreatePlace(placeData);
     };
 
     return (

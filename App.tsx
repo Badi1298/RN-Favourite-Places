@@ -13,7 +13,7 @@ import AllPlaces from './screens/AllPlaces';
 import IconButton from './components/ui/IconButton';
 
 export type RootStackParamList = {
-    AllPlaces: { places: PlaceType[] };
+    AllPlaces: { place: PlaceType };
     AddPlace: { pickedLocation?: { lat: number; lng: number } };
     Map: undefined;
 };
@@ -33,7 +33,6 @@ export default function App() {
                 <RootStack.Screen
                     name="AllPlaces"
                     component={AllPlaces}
-                    initialParams={{ places: [] }}
                     options={({ navigation }) => ({
                         title: 'Your Favourite Places',
                         headerRight: ({ tintColor }) => (
