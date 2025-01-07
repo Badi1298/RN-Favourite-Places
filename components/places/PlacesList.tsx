@@ -1,17 +1,17 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import { Place } from '../../types/places';
+import { PlaceType } from '../../models/place';
 import { Colors } from '../../constants/colors';
 
 import PlaceItem from './PlaceItem';
 
 type Props = {
-    places: Place[];
+    places: PlaceType[];
 };
 
 export default function PlacesList({ places }: Props) {
-    const onSelectHandler = (place: Place) => {
+    const onSelectHandler = (place: PlaceType) => {
         console.log('Selected place:', place);
     };
 

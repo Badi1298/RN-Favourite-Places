@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
 
+import { Place, PlaceType } from '../../models/place';
 import { Colors } from '../../constants/colors';
 
 import LocationPicker from './LocationPicker';
@@ -8,8 +9,12 @@ import CameraImagePicker from './ImagePicker';
 
 import BaseButton from '../ui/BaseButton';
 
-export default function PlaceForm() {
-    const [place, setPlace] = useState({
+type Props = {
+    onCreatePlace: (place: PlaceType) => void;
+};
+
+export default function PlaceForm({ onCreatePlace }: Props) {
+    const [place, setPlace] = React.useState({
         title: '',
         image: '',
         location: { lat: 0, lng: 0, address: '' },
@@ -23,7 +28,7 @@ export default function PlaceForm() {
         setPlace((prevPlace) => ({ ...prevPlace, image }));
     };
 
-    const onLocationPickedHandler = useCallback(
+    const onLocationPickedHandler = React.useCallback(
         (location: { lat: number; lng: number; address: string }) => {
             setPlace((prevPlace) => ({ ...prevPlace, location }));
         },
@@ -31,7 +36,8 @@ export default function PlaceForm() {
     );
 
     const onSubmitHandler = async () => {
-        console.log(place);
+        const placeData = new Place(place.title, place.image, place.location);
+        console.log(placeData);
     };
 
     return (

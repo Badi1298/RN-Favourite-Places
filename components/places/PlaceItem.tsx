@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 
-import { Place } from '../../types/places';
+import { PlaceType } from '../../models/place';
 
 type Props = {
-    place: Place;
-    onSelect: (place: Place) => void;
+    place: PlaceType;
+    onSelect: (place: PlaceType) => void;
 };
 
 export default function PlaceItem({ place, onSelect }: Props) {
@@ -14,7 +14,7 @@ export default function PlaceItem({ place, onSelect }: Props) {
             <Image source={{ uri: place.imageUri }} style={{ width: 100, height: 100 }} />
             <View>
                 <Text>{place.title}</Text>
-                <Text>{place.address}</Text>
+                <Text>{place.location.address}</Text>
             </View>
         </Pressable>
     );

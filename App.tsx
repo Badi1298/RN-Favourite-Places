@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { Place } from './types/places';
+import { PlaceType } from './models/place';
 import { Colors } from './constants/colors';
 
 import Map from './screens/Map';
@@ -13,7 +13,7 @@ import AllPlaces from './screens/AllPlaces';
 import IconButton from './components/ui/IconButton';
 
 export type RootStackParamList = {
-    AllPlaces: { places: Place[] };
+    AllPlaces: { places: PlaceType[] };
     AddPlace: { pickedLocation?: { lat: number; lng: number } };
     Map: undefined;
 };
