@@ -8,14 +8,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Location from 'expo-location';
 
 import { Colors } from '../../constants/colors';
-import { getMapPreviewImage } from '../../util/location';
+import { getAddressFromCoordinates, getMapPreviewImage } from '../../util/location';
 
 import BaseButton from '../ui/BaseButton';
 
 type NavigationProps = StackNavigationProp<RootStackParamList>;
 
 type Props = {
-    onLocationPicked: (location: { lat: number; lng: number }) => void;
+    onLocationPicked: (location: { lat: number; lng: number; address: string }) => void;
 };
 
 export default function LocationPicker({ onLocationPicked }: Props) {
@@ -33,9 +33,19 @@ export default function LocationPicker({ onLocationPicked }: Props) {
     }, [pickedLocation]);
 
     useEffect(() => {
-        if (!location) return;
+        async function fetchAddress() {
+            if (!location) return;
 
-        onLocationPicked(location);
+            try {
+                const address = await getAddressFromCoordinates(location.lat, location.lng);
+
+                onLocationPicked({ ...location, address });
+            } catch (error) {
+                Alert.alert('Error!', 'Failed to fetch address.');
+            }
+        }
+
+        fetchAddress();
     }, [location, onLocationPicked]);
 
     async function locateUserHandler() {

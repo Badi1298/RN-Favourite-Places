@@ -9,7 +9,11 @@ import CameraImagePicker from './ImagePicker';
 import BaseButton from '../ui/BaseButton';
 
 export default function PlaceForm() {
-    const [place, setPlace] = useState({ title: '', image: '', location: { lat: 0, lng: 0 } });
+    const [place, setPlace] = useState({
+        title: '',
+        image: '',
+        location: { lat: 0, lng: 0, address: '' },
+    });
 
     const changeTitleHandler = (text: string) => {
         setPlace((prevPlace) => ({ ...prevPlace, title: text }));
@@ -19,11 +23,14 @@ export default function PlaceForm() {
         setPlace((prevPlace) => ({ ...prevPlace, image }));
     };
 
-    const onLocationPickedHandler = useCallback((location: { lat: number; lng: number }) => {
-        setPlace((prevPlace) => ({ ...prevPlace, location }));
-    }, []);
+    const onLocationPickedHandler = useCallback(
+        (location: { lat: number; lng: number; address: string }) => {
+            setPlace((prevPlace) => ({ ...prevPlace, location }));
+        },
+        []
+    );
 
-    const onSubmitHandler = () => {
+    const onSubmitHandler = async () => {
         console.log(place);
     };
 
