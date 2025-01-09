@@ -21,9 +21,6 @@ export default function PlacesList({ places }: Props) {
     const navigation = useNavigation<NavigationProps>();
 
     const onSelectHandler = (id: string) => {
-        fetchPlace(id).then((place) => {
-            console.log(place);
-        });
         navigation.navigate('PlaceDetails', { placeId: id });
     };
 

@@ -1,18 +1,19 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import * as SplashScreen from 'expo-splash-screen';
 
-import { deletePlace, fetchPlaces, init, insertPlace } from './util/database';
-import { PlaceType } from './models/place';
+import { init } from './util/database';
 import { Colors } from './constants/colors';
 
 import Map from './screens/Map';
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
+import PlaceDetails from './screens/PlaceDetails';
+
 import IconButton from './components/ui/IconButton';
 
 export type RootStackParamList = {
@@ -84,6 +85,13 @@ export default function App() {
                         component={Map}
                         options={{
                             title: 'Map',
+                        }}
+                    />
+                    <RootStack.Screen
+                        name="PlaceDetails"
+                        component={PlaceDetails}
+                        options={{
+                            title: 'Place Details',
                         }}
                     />
                 </RootStack.Navigator>
