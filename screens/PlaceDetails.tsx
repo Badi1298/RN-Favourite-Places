@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 
+import { RootStackParamList } from '../App';
+import { StackScreenProps } from '@react-navigation/stack';
+
+import { fetchPlace } from '../util/database';
+
 import { Colors } from '../constants/colors';
 
 import BaseButton from '../components/ui/BaseButton';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../App';
-import { fetchPlace } from '../util/database';
 
 type Props = StackScreenProps<RootStackParamList, 'PlaceDetails'>;
 
