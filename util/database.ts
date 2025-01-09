@@ -1,4 +1,5 @@
 import * as SQLite from 'expo-sqlite';
+import { Place } from '../types/places';
 
 const db = SQLite.openDatabaseSync('places.db');
 
@@ -17,5 +18,36 @@ export async function init() {
         `);
     } catch (error) {
         console.error('Error creating table', error);
+    }
+}
+
+export async function fetchPlaces(): Promise<Place[]> {
+    const allRows: Place[] = await db.getAllAsync('SELECT * FROM places');
+
+    return allRows;
+}
+
+export async function insertPlace(
+    title: string,
+    imageUri: string,
+    address: string,
+    lat: number,
+    lng: number
+) {
+    try {
+        await db.runAsync(
+            'INSERT INTO places (title, imageUri, address, lat, lng) VALUES (?, ?, ?, ?, ?);',
+            [title, imageUri, address, lat, lng]
+        );
+    } catch (error) {
+        console.error('Error inserting place', error);
+    }
+}
+
+export async function deletePlace(id: number) {
+    try {
+        await db.runAsync('DELETE FROM places WHERE id = ?;', [id]);
+    } catch (error) {
+        console.error('Error deleting place', error);
     }
 }

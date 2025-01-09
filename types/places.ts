@@ -3,5 +3,6 @@ export type Place = {
     title: string;
     address: string;
     imageUri: string;
-    location: { lat: number; lng: number };
+    lat: number;
+    lng: number;
 };

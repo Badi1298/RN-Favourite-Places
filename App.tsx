@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import * as SplashScreen from 'expo-splash-screen';
 
-import { init } from './util/database';
+import { deletePlace, fetchPlaces, init, insertPlace } from './util/database';
 import { PlaceType } from './models/place';
 import { Colors } from './constants/colors';
 
@@ -16,7 +16,7 @@ import AllPlaces from './screens/AllPlaces';
 import IconButton from './components/ui/IconButton';
 
 export type RootStackParamList = {
-    AllPlaces: { place: PlaceType };
+    AllPlaces: undefined;
     AddPlace: { pickedLocation?: { lat: number; lng: number } };
     Map: undefined;
 };
