@@ -4,8 +4,23 @@ import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { Colors } from '../constants/colors';
 
 import BaseButton from '../components/ui/BaseButton';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../App';
+import { fetchPlace } from '../util/database';
 
-export default function PlaceDetails() {
+type Props = StackScreenProps<RootStackParamList, 'PlaceDetails'>;
+
+export default function PlaceDetails({ route }: Props) {
+    const { placeId } = route.params;
+
+    React.useEffect(() => {
+        if (!placeId) return;
+
+        fetchPlace(placeId).then((place) => {
+            console.log(place);
+        });
+    }, [placeId]);
+
     function showOnMapHandler() {}
 
     return (
