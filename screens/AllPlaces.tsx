@@ -1,12 +1,14 @@
 import React from 'react';
-import { StackScreenProps } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../App';
+import { StackScreenProps } from '@react-navigation/stack';
+
+import { fetchPlaces } from '../util/database';
+
+import { Place } from '../types/places';
 import { PlaceType } from '../models/place';
 
 import PlacesList from '../components/places/PlacesList';
-import { fetchPlaces } from '../util/database';
-import { Place } from '../types/places';
 
 type Props = StackScreenProps<RootStackParamList, 'AllPlaces'>;
 

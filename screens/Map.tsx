@@ -1,8 +1,9 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 
 import { Alert, StyleSheet, View } from 'react-native';
+import MapView, { Marker, Region } from 'react-native-maps';
+
 import { StackScreenProps } from '@react-navigation/stack';
-import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
 
 import { RootStackParamList } from '../App';
 

@@ -1,10 +1,11 @@
 import React from 'react';
-import { StackScreenProps } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../App';
-import { PlaceType } from '../models/place';
+import { StackScreenProps } from '@react-navigation/stack';
 
 import { insertPlace } from '../util/database';
+
+import { PlaceType } from '../models/place';
 
 import PlaceForm from '../components/places/PlaceForm';
 

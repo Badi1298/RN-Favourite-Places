@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
 
 import { Place, PlaceType } from '../../models/place';
+
 import { Colors } from '../../constants/colors';
 
 import LocationPicker from './LocationPicker';
