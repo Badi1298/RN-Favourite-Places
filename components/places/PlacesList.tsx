@@ -1,18 +1,30 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { PlaceType } from '../../models/place';
 import { Colors } from '../../constants/colors';
 
 import PlaceItem from './PlaceItem';
+import { fetchPlace } from '../../util/database';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../App';
+
+type NavigationProps = StackNavigationProp<RootStackParamList>;
 
 type Props = {
     places: PlaceType[];
 };
 
 export default function PlacesList({ places }: Props) {
-    const onSelectHandler = (place: PlaceType) => {
-        console.log('Selected place:', place);
+    const navigation = useNavigation<NavigationProps>();
+
+    const onSelectHandler = (id: string) => {
+        fetchPlace(id).then((place) => {
+            console.log(place);
+        });
+        navigation.navigate('PlaceDetails', { placeId: id });
     };
 
     if (places.length === 0) {

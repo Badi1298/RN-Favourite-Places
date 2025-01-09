@@ -19,6 +19,7 @@ export type RootStackParamList = {
     AllPlaces: undefined;
     AddPlace: { pickedLocation?: { lat: number; lng: number } };
     Map: undefined;
+    PlaceDetails: { placeId: string };
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();

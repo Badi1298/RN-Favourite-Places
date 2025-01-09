@@ -27,6 +27,16 @@ export async function fetchPlaces(): Promise<Place[]> {
     return allRows;
 }
 
+export async function fetchPlace(id: string): Promise<Place> {
+    const place: Place | null = await db.getFirstAsync('SELECT * FROM places WHERE id = ?;', [id]);
+
+    if (!place) {
+        throw new Error(`Place with id ${id} not found`);
+    }
+
+    return place;
+}
+
 export async function insertPlace(
     title: string,
     imageUri: string,
