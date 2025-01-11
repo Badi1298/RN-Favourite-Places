@@ -24,6 +24,8 @@ export default function Map({ navigation, route }: Props) {
     };
 
     function selectLocationHandler(event: Region) {
+        if (initialLocation) return;
+
         const { latitude, longitude } = event;
 
         setSelectedLocation({ lat: latitude, lng: longitude });
