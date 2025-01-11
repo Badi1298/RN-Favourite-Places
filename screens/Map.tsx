@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import { Alert, StyleSheet, View } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
@@ -11,13 +11,14 @@ import IconButton from '../components/ui/IconButton';
 
 type Props = StackScreenProps<RootStackParamList, 'Map'>;
 
-export default function Map({ navigation }: Props) {
+export default function Map({ navigation, route }: Props) {
+    const initialLocation = route.params?.initialLocation;
     // prettier-ignore
-    const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | undefined>(undefined);
+    const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | undefined>(initialLocation);
 
     const initialRegion = {
-        latitude: 37.78,
-        longitude: -122.43,
+        latitude: initialLocation ? initialLocation.lat : 37.78,
+        longitude: initialLocation ? initialLocation.lng : -122.43,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     };
@@ -42,6 +43,8 @@ export default function Map({ navigation }: Props) {
     }, [navigation, selectedLocation]);
 
     useLayoutEffect(() => {
+        if (initialLocation) return;
+
         navigation.setOptions({
             headerRight: ({ tintColor }) => (
                 <IconButton
@@ -52,7 +55,7 @@ export default function Map({ navigation }: Props) {
                 />
             ),
         });
-    }, [navigation, savePickedLocationHandler]);
+    }, [navigation, savePickedLocationHandler, initialLocation]);
 
     return (
         <View style={styles.container}>

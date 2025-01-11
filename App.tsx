@@ -19,7 +19,7 @@ import IconButton from './components/ui/IconButton';
 export type RootStackParamList = {
     AllPlaces: undefined;
     AddPlace: { pickedLocation?: { lat: number; lng: number } };
-    Map: undefined;
+    Map: { initialLocation?: { lat: number; lng: number } };
     PlaceDetails: { placeId: string };
 };
 
@@ -91,7 +91,7 @@ export default function App() {
                         name="PlaceDetails"
                         component={PlaceDetails}
                         options={{
-                            title: 'Place Details',
+                            title: 'Loading Place...',
                         }}
                     />
                 </RootStack.Navigator>

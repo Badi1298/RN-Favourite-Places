@@ -60,7 +60,7 @@ export default function BaseButton({
                 name={icon}
                 style={styles.icon}
                 size={iconSize || 18}
-                color={iconColor || Colors.Primary500}
+                color={iconColor || Colors.Gray700}
             />
             <Text style={[styles.text, textStyle, textStyles]}>{children}</Text>
         </Pressable>

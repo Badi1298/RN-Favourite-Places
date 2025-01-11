@@ -9,28 +9,46 @@ import { fetchPlace } from '../util/database';
 import { Colors } from '../constants/colors';
 
 import BaseButton from '../components/ui/BaseButton';
+import { Place } from '../types/places';
 
 type Props = StackScreenProps<RootStackParamList, 'PlaceDetails'>;
 
-export default function PlaceDetails({ route }: Props) {
+export default function PlaceDetails({ route, navigation }: Props) {
+    const [fetchedPlace, setFetchedPlace] = React.useState<Place>();
+
     const { placeId } = route.params;
 
     React.useEffect(() => {
         if (!placeId) return;
 
         fetchPlace(placeId).then((place) => {
-            console.log(place);
+            setFetchedPlace(place);
+            navigation.setOptions({ title: place.title });
         });
     }, [placeId]);
 
-    function showOnMapHandler() {}
+    function showOnMapHandler() {
+        navigation.navigate('Map', {
+            initialLocation: {
+                lat: fetchedPlace?.lat || 37.78,
+                lng: fetchedPlace?.lng || -122.43,
+            },
+        });
+    }
+
+    if (!fetchedPlace)
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Loading place data...</Text>
+            </View>
+        );
 
     return (
         <ScrollView>
-            <Image style={styles.image} />
+            <Image style={styles.image} source={{ uri: fetchedPlace?.imageUri }} />
             <View style={styles.locationContainer}>
                 <View style={styles.addressContainer}>
-                    <Text style={styles.address}>Address</Text>
+                    <Text style={styles.address}>{fetchedPlace?.address}</Text>
                 </View>
                 <BaseButton icon="map-outline" onPress={showOnMapHandler}>
                     View on Map
